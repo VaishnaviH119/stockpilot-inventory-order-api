@@ -70,12 +70,3 @@ python -m pytest -q
 ```
 
 The suite covers product validation and access control, order totals and price snapshots, successful stock deductions, insufficient stock, invalid input, user-scoped order reads, and transaction rollback after a simulated database write failure. A PostgreSQL-only concurrency test submits two orders for the same last unit and verifies that one succeeds while the other is rejected; SQLite skips this row-locking test because its locking behavior differs.
-
-## Interview walkthrough
-
-- **Models and ORM:** “`Product`, `Order`, and `OrderItem` define the database relationships. An order has many items, and each item stores a purchase-time price snapshot.”
-- **Serializer:** “The serializer validates API input and controls which fields clients may send. Order input accepts IDs and quantities, never prices or totals.”
-- **Views and routing:** “A viewset implements the HTTP actions, and a DRF router maps them to URL paths.”
-- **Permissions:** “Product reads are public, product writes require staff, and order queries are scoped to the signed-in owner unless staff is requesting them.”
-- **Transactions:** “Creating an order and deducting stock is one atomic operation. PostgreSQL row locks serialize concurrent updates to the same product.”
-- **Tests:** “API tests verify both success and failure paths; a simulated write error proves the transaction rolls back order rows and stock changes. A PostgreSQL concurrency test confirms simultaneous orders cannot sell the last unit twice.”
