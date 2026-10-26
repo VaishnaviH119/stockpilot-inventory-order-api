@@ -19,6 +19,12 @@ class ProductAPITests(TestCase):
             username="manager", password="test-password", is_staff=True
         )
 
+    def test_site_root_redirects_to_api_index(self):
+        response = self.client.get("/")
+
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response["Location"], "/api/")
+
     def test_staff_can_create_product(self):
         self.client.force_authenticate(self.staff)
         response = self.client.post(
