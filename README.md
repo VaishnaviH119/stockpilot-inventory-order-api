@@ -21,7 +21,7 @@ python manage.py seed_demo_data
 python manage.py runserver
 ```
 
-Open the browsable API at `http://127.0.0.1:8000/api/` and Django Admin at `http://127.0.0.1:8000/admin/`. Product reads are public. Staff users can create and change products. An authenticated user can create orders and only view their own orders; staff can view all orders.
+Open the browsable API at `http://127.0.0.1:8000/api/` and Django Admin at `http://127.0.0.1:8000/admin/`. The browsable API login is at `http://127.0.0.1:8000/api-auth/login/`. Product reads are public. Staff users can create and change products. An authenticated user can create orders and only view their own orders; staff can view all orders.
 
 ## API endpoints
 
